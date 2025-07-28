@@ -9,7 +9,12 @@ function Navbar() {
 
   return (
     <nav
-      style={{ backgroundColor: "#333", padding: "1rem", marginBottom: "20px" }}
+      style={{
+        backgroundColor: "#333",
+        padding: "1rem",
+        marginBottom: "20px",
+        display: "justifyContent",
+      }}
     >
       <Link to="/" style={linkStyle}>
         Home
