@@ -4,7 +4,6 @@ import RecipeList from "./RecipeList";
 function Home() {
   return (
     <>
-      <h1>Recipe Sharing App</h1>
       <p>Share your favorite recipes with the world!</p>
       <hr />
       <h2>Add a New Recipe</h2>
