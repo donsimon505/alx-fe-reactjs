@@ -1,9 +1,23 @@
 import { useRecipeStore } from "./recipeStore";
+import { useParams } from "react-router-dom";
+import EditRecipeForm from "./EditRecipeForm";
+import DeleteRecipeButton from "./DeleteRecipeButton";
 
-const RecipeDetails = ({ recipeId }) => {
+const RecipeDetails = () => {
+  const { id } = useParams();
+  const recipeId = parseInt(id);
   const recipe = useRecipeStore((state) =>
     state.recipes.find((recipe) => recipe.id === recipeId)
   );
+
+  if (!recipe) {
+    return (
+      <div>
+        <h2>Recipe not found</h2>
+        <p>The recipe you're looking for doesn't exist.</p>
+      </div>
+    );
+  }
 
   return (
     <div>
