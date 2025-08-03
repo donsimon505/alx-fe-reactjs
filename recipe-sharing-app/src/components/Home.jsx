@@ -1,5 +1,6 @@
 import AddRecipeForm from "./AddRecipeForm";
 import RecipeList from "./RecipeList";
+import FavoritesList from "./FavoritesList";
 
 function Home() {
   return (
@@ -13,6 +14,10 @@ function Home() {
       <p>Browse through the recipes below:</p>
       <hr />
       <RecipeList />
+      <h2>Favorites</h2>
+      <p>Check out your favorite recipes:</p>
+      <FavoritesList />
+      <hr />
     </>
   );
 }
