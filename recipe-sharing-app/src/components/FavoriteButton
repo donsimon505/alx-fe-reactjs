@@ -1,0 +1,8 @@
+import { useRecipeStore } from "./recipeStore";
+
+const FavoriteButton = () => {
+  const { addFavorite, removeFavorite } = useRecipeStore((state) => ({
+    addFavorite: state.addFavorite,
+    removeFavorite: state.removeFavorite,
+  }));
+};
