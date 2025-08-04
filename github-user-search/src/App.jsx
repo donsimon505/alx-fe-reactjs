@@ -1,18 +1,24 @@
 import { useState } from "react";
 import SearchBar from "./components/SearchBar";
-import UserProfile from "./components/UserProfile";
-import { fetchGitHubUser } from "./services/github";
+import { fetchUserData } from "./services/githubService";
 
 function App() {
   const [user, setUser] = useState(null);
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   const handleSearch = async (username) => {
+    setLoading(true);
+    setError(false);
+    setUser(null);
+
     try {
-      const data = await fetchGitHubUser(username);
-      setUser(data);
-    } catch (error) {
-      setUser(null);
-      console.error("User not found");
+      const userData = await fetchUserData(username);
+      setUser(userData);
+    } catch (err) {
+      setError(true);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -20,7 +26,20 @@ function App() {
     <div>
       <h1>GitHub User Search</h1>
       <SearchBar onSearch={handleSearch} />
-      <UserProfile user={user} />
+
+      {loading && <p>Loading...</p>}
+      {error && <p>Looks like we can't find the user</p>}
+      {user && (
+        <div>
+          <img src={user.avatar_url} alt="User Avatar" width="100" />
+          <h2>{user.name || user.login}</h2>
+          <p>
+            <a href={user.html_url} target="_blank" rel="noopener noreferrer">
+              View GitHub Profile
+            </a>
+          </p>
+        </div>
+      )}
     </div>
   );
 }
