@@ -2,7 +2,7 @@ import { useState } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 
-function AddRecipeForm() {
+function AddRecipeForm({ setRecipes }) {
   const [title, setTitle] = useState("");
   const [ingredients, setIngredients] = useState("");
   const [steps, setSteps] = useState("");
@@ -45,12 +45,20 @@ function AddRecipeForm() {
       setErrors({});
       setSubmitted(true);
 
-      // Example: Log the new recipe
-      console.log({
+      // ✅ Create new recipe object
+      const newRecipe = {
+        id: Date.now(), // unique ID
         title,
-        ingredients: ingredients.split("\n"),
-        steps: steps.split("\n"),
-      });
+        ingredients: ingredients
+          .split("\n")
+          .filter((line) => line.trim() !== ""),
+        steps: steps.split("\n").filter((line) => line.trim() !== ""),
+        summary: `A quick recipe for ${title}`, // placeholder summary
+        image: "https://placehold.co/300", // placeholder image
+      };
+
+      // ✅ Add to recipe list
+      setRecipes((prev) => [...prev, newRecipe]);
 
       // Reset form
       setTitle("");
@@ -62,47 +70,65 @@ function AddRecipeForm() {
   return (
     <>
       <Header />
-      <main>
-        <h1>Add a New Recipe</h1>
+      <main className="p-4">
+        <h1 className="text-2xl font-bold mb-4">Add a New Recipe</h1>
 
-        {submitted && <p>Recipe submitted successfully!</p>}
+        {submitted && (
+          <p className="text-green-600">Recipe submitted successfully!</p>
+        )}
 
-        <form onSubmit={handleSubmit}>
+        <form onSubmit={handleSubmit} className="space-y-4">
           {/* Title */}
           <div>
-            <label htmlFor="title">Recipe Title:</label>
+            <label htmlFor="title" className="block font-medium">
+              Recipe Title:
+            </label>
             <input
               type="text"
               id="title"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
+              className="w-full p-2 border rounded"
             />
-            {errors.title && <p>{errors.title}</p>}
+            {errors.title && <p className="text-red-600">{errors.title}</p>}
           </div>
 
           {/* Ingredients */}
           <div>
-            <label htmlFor="ingredients">Ingredients (one per line):</label>
+            <label htmlFor="ingredients" className="block font-medium">
+              Ingredients (one per line):
+            </label>
             <textarea
               id="ingredients"
               value={ingredients}
               onChange={(e) => setIngredients(e.target.value)}
+              className="w-full p-2 border rounded"
             ></textarea>
-            {errors.ingredients && <p>{errors.ingredients}</p>}
+            {errors.ingredients && (
+              <p className="text-red-600">{errors.ingredients}</p>
+            )}
           </div>
 
           {/* Steps */}
           <div>
-            <label htmlFor="steps">Preparation Steps (one per line):</label>
+            <label htmlFor="steps" className="block font-medium">
+              Preparation Steps (one per line):
+            </label>
             <textarea
               id="steps"
               value={steps}
               onChange={(e) => setSteps(e.target.value)}
+              className="w-full p-2 border rounded"
             ></textarea>
-            {errors.steps && <p>{errors.steps}</p>}
+            {errors.steps && <p className="text-red-600">{errors.steps}</p>}
           </div>
 
-          <button type="submit">Submit Recipe</button>
+          <button
+            type="submit"
+            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+          >
+            Submit Recipe
+          </button>
         </form>
       </main>
       <Footer />
