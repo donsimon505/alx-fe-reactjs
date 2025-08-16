@@ -88,7 +88,7 @@ function AddRecipeForm({ setRecipes }) {
               id="title"
               value={title}
               onChange={(e) => setTitle(e.target.value)}
-              className="w-full p-2 border rounded"
+              className="w-full p-2 md:p-1 border rounded shadow"
             />
             {errors.title && <p className="text-red-600">{errors.title}</p>}
           </div>
