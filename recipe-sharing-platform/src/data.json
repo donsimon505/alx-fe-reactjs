@@ -3,18 +3,62 @@
     "id": 1,
     "title": "Spaghetti Carbonara",
     "summary": "A classic Italian pasta dish with eggs, cheese, bacon, and black pepper.",
-    "image": "https://placehold.co/150"
+    "image": "https://placehold.co/300",
+    "ingredients": [
+      "200g spaghetti",
+      "100g bacon",
+      "2 eggs",
+      "50g Parmesan cheese",
+      "Black pepper"
+    ],
+    "instructions": [
+      "Cook spaghetti in salted boiling water until al dente.",
+      "Fry bacon until crispy.",
+      "Whisk eggs with grated Parmesan and black pepper.",
+      "Combine pasta, bacon, and egg mixture off the heat.",
+      "Serve immediately."
+    ]
   },
   {
     "id": 2,
     "title": "Chicken Tikka Masala",
     "summary": "Chunks of grilled chicken (tikka) cooked in a smooth buttery & creamy tomato based gravy.",
-    "image": "https://placehold.co/150"
+    "image": "https://placehold.co/300",
+    "ingredients": [
+      "500g chicken breast",
+      "1 cup yogurt",
+      "2 tbsp tikka masala paste",
+      "1 onion, chopped",
+      "1 cup tomato puree",
+      "1/2 cup cream"
+    ],
+    "instructions": [
+      "Marinate chicken in yogurt and tikka masala paste for 1 hour.",
+      "Grill chicken until golden brown.",
+      "Cook onions until soft, then add tomato puree.",
+      "Stir in cream and grilled chicken.",
+      "Simmer for 10 minutes before serving."
+    ]
   },
   {
     "id": 3,
     "title": "Vegetable Stir Fry",
     "summary": "A quick and colorful mix of vegetables stir-fried in a savory sauce.",
-    "image": "https://placehold.co/150"
+    "image": "https://placehold.co/300",
+    "ingredients": [
+      "1 broccoli head, chopped",
+      "1 red bell pepper, sliced",
+      "1 carrot, julienned",
+      "2 tbsp soy sauce",
+      "1 tbsp sesame oil",
+      "2 garlic cloves, minced"
+    ],
+    "instructions": [
+      "Heat sesame oil in a wok.",
+      "Add garlic and stir-fry until fragrant.",
+      "Add vegetables and cook for 5 minutes.",
+      "Pour soy sauce over vegetables and stir well.",
+      "Serve hot with rice or noodles."
+    ]
   }
 ]
