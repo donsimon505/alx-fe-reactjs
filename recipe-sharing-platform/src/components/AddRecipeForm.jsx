@@ -5,7 +5,7 @@ import Footer from "./Footer";
 function AddRecipeForm({ setRecipes }) {
   const [title, setTitle] = useState("");
   const [ingredients, setIngredients] = useState("");
-  const [steps, setSteps] = useState("");
+  const [instructions, setInstructions] = useState("");
   const [errors, setErrors] = useState({});
   const [submitted, setSubmitted] = useState(false);
 
@@ -27,8 +27,8 @@ function AddRecipeForm({ setRecipes }) {
       }
     }
 
-    if (!steps.trim()) {
-      newErrors.steps = "Preparation steps are required.";
+    if (!instructions.trim()) {
+      newErrors.instructions = "Preparation steps are required.";
     }
 
     return newErrors;
@@ -45,93 +45,98 @@ function AddRecipeForm({ setRecipes }) {
       setErrors({});
       setSubmitted(true);
 
-      // ✅ Create new recipe object
       const newRecipe = {
         id: Date.now(), // unique ID
         title,
         ingredients: ingredients
           .split("\n")
           .filter((line) => line.trim() !== ""),
-        steps: steps.split("\n").filter((line) => line.trim() !== ""),
-        summary: `A quick recipe for ${title}`, // placeholder summary
-        image: "https://placehold.co/300", // placeholder image
+        instructions: instructions
+          .split("\n")
+          .filter((line) => line.trim() !== ""),
+        summary: `A quick recipe for ${title}`,
+        image: "https://placehold.co/300",
       };
 
-      // ✅ Add to recipe list
       setRecipes((prev) => [...prev, newRecipe]);
+      console.log(newRecipe);
 
       // Reset form
       setTitle("");
       setIngredients("");
-      setSteps("");
+      setInstructions("");
     }
   };
 
   return (
     <>
-      <Header />
-      <main className="p-4">
-        <h1 className="text-2xl font-bold mb-4">Add a New Recipe</h1>
+      <div className="flex flex-col min-h-screen">
+        <Header />
+        <main className="flex-1 px-[20px] sm:px-[20px] lg:px-[100px] md:px-[50px] py-[30px] md:py-[40px] bg-sky-50">
+          <h1 className="text-2xl font-bold mb-4">Add a New Recipe</h1>
 
-        {submitted && (
-          <p className="text-green-600">Recipe submitted successfully!</p>
-        )}
+          {submitted && (
+            <p className="text-green-600">Recipe submitted successfully!</p>
+          )}
 
-        <form onSubmit={handleSubmit} className="space-y-4">
-          {/* Title */}
-          <div>
-            <label htmlFor="title" className="block font-medium">
-              Recipe Title:
-            </label>
-            <input
-              type="text"
-              id="title"
-              value={title}
-              onChange={(e) => setTitle(e.target.value)}
-              className="w-full p-2 md:p-1 border rounded shadow"
-            />
-            {errors.title && <p className="text-red-600">{errors.title}</p>}
-          </div>
+          <form onSubmit={handleSubmit} className="space-y-4">
+            {/* Title */}
+            <div>
+              <label htmlFor="title" className="block font-medium">
+                Recipe Title:
+              </label>
+              <input
+                type="text"
+                id="title"
+                value={title}
+                onChange={(e) => setTitle(e.target.value)}
+                className="w-full p-2 md:p-1 border rounded focus:shadow-sm"
+              />
+              {errors.title && <p className="text-red-600">{errors.title}</p>}
+            </div>
 
-          {/* Ingredients */}
-          <div>
-            <label htmlFor="ingredients" className="block font-medium">
-              Ingredients (one per line):
-            </label>
-            <textarea
-              id="ingredients"
-              value={ingredients}
-              onChange={(e) => setIngredients(e.target.value)}
-              className="w-full p-2 border rounded"
-            ></textarea>
-            {errors.ingredients && (
-              <p className="text-red-600">{errors.ingredients}</p>
-            )}
-          </div>
+            {/* Ingredients */}
+            <div>
+              <label htmlFor="ingredients" className="block font-medium">
+                Ingredients (one per line):
+              </label>
+              <textarea
+                id="ingredients"
+                value={ingredients}
+                onChange={(e) => setIngredients(e.target.value)}
+                className="w-full p-2 border rounded focus:shadow-sm"
+              ></textarea>
+              {errors.ingredients && (
+                <p className="text-red-600">{errors.ingredients}</p>
+              )}
+            </div>
 
-          {/* Steps */}
-          <div>
-            <label htmlFor="steps" className="block font-medium">
-              Preparation Steps (one per line):
-            </label>
-            <textarea
-              id="steps"
-              value={steps}
-              onChange={(e) => setSteps(e.target.value)}
-              className="w-full p-2 border rounded"
-            ></textarea>
-            {errors.steps && <p className="text-red-600">{errors.steps}</p>}
-          </div>
+            {/* Steps */}
+            <div>
+              <label htmlFor="instructions" className="block font-medium">
+                Preparation Steps (one per line):
+              </label>
+              <textarea
+                id="instructions"
+                value={instructions}
+                onChange={(e) => setInstructions(e.target.value)}
+                className="w-full p-2 border rounded focus:shadow-sm"
+              ></textarea>
+              {errors.instructions && (
+                <p className="text-red-600">{errors.instructions}</p>
+              )}
+            </div>
 
-          <button
-            type="submit"
-            className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
-          >
-            Submit Recipe
-          </button>
-        </form>
-      </main>
-      <Footer />
+            <button
+              type="submit"
+              className="bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+            >
+              Submit Recipe
+            </button>
+          </form>
+        </main>
+        <Footer />
+      </div>
     </>
   );
 }
