@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import Header from "./Header";
 import Footer from "./Footer";
 
-function Homepage() {
+function HomePage() {
   const [recipes, setRecipes] = useState([]);
 
   useEffect(() => {
@@ -37,4 +37,4 @@ function Homepage() {
   );
 }
 
-export default Homepage;
+export default HomePage;
