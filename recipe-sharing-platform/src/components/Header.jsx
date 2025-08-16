@@ -9,6 +9,9 @@ function Header() {
           <li>
             <Link to="/">Home</Link>
           </li>
+          <li>
+            <Link to="/add">Add New Recipe</Link>
+          </li>
         </ul>
       </nav>
     </header>
