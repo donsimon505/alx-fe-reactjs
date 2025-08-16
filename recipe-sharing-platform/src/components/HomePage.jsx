@@ -23,11 +23,16 @@ function HomePage() {
       <main>
         <section>
           {recipes.map((recipe) => (
-            <article key={recipe.id}>
+            <article
+              key={recipe.id}
+              className="p-3 rounded shadow hover:shadow-md"
+            >
               <img src={recipe.image} alt={recipe.title} />
-              <h2>{recipe.title}</h2>
-              <p>{recipe.summary}</p>
-              <a href={`/recipe/${recipe.id}`}>View Recipe</a>
+              <h2 className="text-lg">{recipe.title}</h2>
+              <p className="text-base">{recipe.summary}</p>
+              <a href={`/recipe/${recipe.id}`} className="text-sm">
+                View Recipe
+              </a>
             </article>
           ))}
         </section>
