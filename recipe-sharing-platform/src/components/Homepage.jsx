@@ -37,4 +37,4 @@ function HomePage() {
   );
 }
 
-export default HomesPage;
+export default HomePage;
