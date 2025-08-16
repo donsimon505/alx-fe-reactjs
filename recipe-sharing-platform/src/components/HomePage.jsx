@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { Link } from "react-router-dom";
 import Header from "./Header";
 import Footer from "./Footer";
 
@@ -30,9 +31,7 @@ function HomePage() {
               <img src={recipe.image} alt={recipe.title} />
               <h2 className="text-lg">{recipe.title}</h2>
               <p className="text-base">{recipe.summary}</p>
-              <a href={`/recipe/${recipe.id}`} className="text-sm">
-                View Recipe
-              </a>
+              <Link to={`/recipe/${recipe.id}`}>View Recipe</Link>
             </article>
           ))}
         </section>
