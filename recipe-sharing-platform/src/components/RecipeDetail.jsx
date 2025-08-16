@@ -8,7 +8,7 @@ function RecipeDetail() {
   const [recipe, setRecipe] = useState(null);
 
   useEffect(() => {
-    fetch("/data.json")
+    fetch(new URL("../data.json", import.meta.url))
       .then((response) => {
         if (!response.ok) {
           throw new Error("Failed to load recipe");
@@ -31,12 +31,12 @@ function RecipeDetail() {
       <Header />
       <main>
         <article>
-          <h1>{recipe.title}</h1>
+          <h1 className="text-lg">{recipe.title}</h1>
           <img src={recipe.image} alt={recipe.title} />
           <p>{recipe.summary}</p>
 
-          <section>
-            <h2>Ingredients</h2>
+          <section className="p-5 bg-slate-200 shadow">
+            <h2 className="font-bold">Ingredients</h2>
             <ul>
               {recipe.ingredients.map((ingredient, index) => (
                 <li key={index}>{ingredient}</li>

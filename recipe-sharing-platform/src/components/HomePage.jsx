@@ -7,7 +7,7 @@ function HomePage() {
   const [recipes, setRecipes] = useState([]);
 
   useEffect(() => {
-    fetch("/data.json")
+    fetch(new URL("../data.json", import.meta.url))
       .then((response) => {
         if (!response.ok) {
           throw new Error("Failed to load recipes");
