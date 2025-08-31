@@ -9,7 +9,7 @@ function App() {
     <Router>
       <nav>
         <Link to="/">Home</Link> | <Link to="/profile">Profile</Link> |{" "}
-        <Link to="/post/123">Example Post</Link> |{" "}
+        <Link to="/blog/123">Example Post</Link> |{" "}
         <button
           onClick={() => {
             // Toggle login status
