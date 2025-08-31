@@ -1,7 +1,6 @@
 import { useQuery } from "react-query";
 import axios from "axios";
 
-// Function to fetch posts from the API
 const fetchPosts = async () => {
   const response = await axios.get(
     "https://jsonplaceholder.typicode.com/posts"
@@ -10,8 +9,14 @@ const fetchPosts = async () => {
 };
 
 function PostsComponent() {
-  // useQuery: "posts" is the query key, fetchPosts is the fetcher function
-  const { data, isLoading, isError, error } = useQuery("posts", fetchPosts);
+  const { data, isLoading, isError, error, refetch, isFetching } = useQuery(
+    "posts",
+    fetchPosts,
+    {
+      staleTime: 5 * 60 * 1000, // 5 minutes cache
+      cacheTime: 10 * 60 * 1000, // 10 minutes before garbage collection
+    }
+  );
 
   if (isLoading) return <p>Loading posts...</p>;
   if (isError) return <p>Error: {error.message}</p>;
@@ -19,6 +24,10 @@ function PostsComponent() {
   return (
     <div>
       <h2>Posts</h2>
+      <button onClick={() => refetch()}>
+        {isFetching ? "Refreshing..." : "Refetch Posts"}
+      </button>
+
       <ul>
         {data.map((post) => (
           <li key={post.id}>
@@ -27,6 +36,14 @@ function PostsComponent() {
           </li>
         ))}
       </ul>
+
+      <p>
+        {/* Optional: indicate cached data */}
+        <em>
+          Data is cached and will not refetch unless you click "Refetch Posts"
+          or cache expires.
+        </em>
+      </p>
     </div>
   );
 }
