@@ -9,13 +9,15 @@ function TodoList() {
 
   const [newTodo, setNewTodo] = useState("");
 
-  const addTodo = (text) => {
-    if (!text) return;
-    const newItem = { id: Date.now(), text, completed: false };
-    setTodos([...todos, newItem]);
+  const handleAdd = (e) => {
+    e.preventDefault();
+    if (!newTodo.trim()) return;
+    const todo = { id: Date.now(), text: newTodo, completed: false };
+    setTodos([...todos, todo]);
+    setNewTodo("");
   };
 
-  const toggleTodo = (id) => {
+  const handleToggle = (id) => {
     setTodos(
       todos.map((todo) =>
         todo.id === id ? { ...todo, completed: !todo.completed } : todo
@@ -23,21 +25,14 @@ function TodoList() {
     );
   };
 
-  const deleteTodo = (id) => {
+  const handleDelete = (id) => {
     setTodos(todos.filter((todo) => todo.id !== id));
-  };
-
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    addTodo(newTodo);
-    setNewTodo("");
   };
 
   return (
     <div>
       <h2>Todo List</h2>
-
-      <form onSubmit={handleSubmit}>
+      <form onSubmit={handleAdd}>
         <input
           placeholder="Add a new todo"
           value={newTodo}
@@ -50,14 +45,14 @@ function TodoList() {
         {todos.map((todo) => (
           <li key={todo.id}>
             <span
-              onClick={() => toggleTodo(todo.id)}
+              onClick={() => handleToggle(todo.id)}
               style={{
                 textDecoration: todo.completed ? "line-through" : "none",
               }}
             >
               {todo.text}
             </span>
-            <button onClick={() => deleteTodo(todo.id)}>Delete</button>
+            <button onClick={() => handleDelete(todo.id)}>Delete</button>
           </li>
         ))}
       </ul>
