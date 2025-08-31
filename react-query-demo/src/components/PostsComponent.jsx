@@ -1,13 +1,16 @@
 import { useQuery } from "react-query";
 import axios from "axios";
 
-function fetchPosts() {
-  return axios
-    .get("https://jsonplaceholder.typicode.com/posts")
-    .then((res) => res.data);
-}
+// Function to fetch posts from the API
+const fetchPosts = async () => {
+  const response = await axios.get(
+    "https://jsonplaceholder.typicode.com/posts"
+  );
+  return response.data;
+};
 
-function Posts() {
+function PostsComponent() {
+  // useQuery: "posts" is the query key, fetchPosts is the fetcher function
   const { data, isLoading, isError, error } = useQuery("posts", fetchPosts);
 
   if (isLoading) return <p>Loading posts...</p>;
@@ -28,4 +31,4 @@ function Posts() {
   );
 }
 
-export default Posts;
+export default PostsComponent;
