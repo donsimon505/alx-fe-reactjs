@@ -1,26 +1,42 @@
-import { useState } from "react";
+import React, { useState } from "react";
+
+// Simple AddTodoForm component
+function AddTodoForm({ addTodo }) {
+  const [inputValue, setInputValue] = useState("");
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (!inputValue.trim()) return;
+    addTodo(inputValue.trim());
+    setInputValue("");
+  };
+
+  return (
+    <form onSubmit={handleSubmit}>
+      <input
+        type="text"
+        placeholder="Add a new todo"
+        value={inputValue}
+        onChange={(e) => setInputValue(e.target.value)}
+      />
+      <button type="submit">Add Todo</button>
+    </form>
+  );
+}
 
 function TodoList() {
-  // Initialize state with demo todos
   const [todos, setTodos] = useState([
     { id: 1, text: "Learn React", completed: false },
     { id: 2, text: "Build a Todo App", completed: false },
     { id: 3, text: "Submit Assignment", completed: false },
   ]);
 
-  const [newTodo, setNewTodo] = useState("");
-
-  // Method to add a new todo
-  const handleAdd = (e) => {
-    e.preventDefault();
-    if (!newTodo.trim()) return;
-    const todo = { id: Date.now(), text: newTodo, completed: false };
-    setTodos([...todos, todo]);
-    setNewTodo("");
+  const addTodo = (text) => {
+    const newTodo = { id: Date.now(), text, completed: false };
+    setTodos([...todos, newTodo]);
   };
 
-  // Method to toggle todo completion
-  const handleToggle = (id) => {
+  const toggleTodo = (id) => {
     setTodos(
       todos.map((todo) =>
         todo.id === id ? { ...todo, completed: !todo.completed } : todo
@@ -28,38 +44,35 @@ function TodoList() {
     );
   };
 
-  // Method to delete a todo
-  const handleDelete = (id) => {
+  const deleteTodo = (id) => {
     setTodos(todos.filter((todo) => todo.id !== id));
   };
 
   return (
     <div>
       <h2>Todo List</h2>
-
-      {/* Add Todo Form */}
-      <form onSubmit={handleAdd}>
-        <input
-          placeholder="Add a new todo"
-          value={newTodo}
-          onChange={(e) => setNewTodo(e.target.value)}
-        />
-        <button type="submit">Add Todo</button>
-      </form>
-
-      {/* List of todos */}
+      <AddTodoForm addTodo={addTodo} />
       <ul>
         {todos.map((todo) => (
-          <li key={todo.id}>
-            <span
-              onClick={() => handleToggle(todo.id)}
-              style={{
-                textDecoration: todo.completed ? "line-through" : "none",
+          <li
+            key={todo.id}
+            onClick={() => toggleTodo(todo.id)}
+            style={{
+              textDecoration: todo.completed ? "line-through" : "none",
+              cursor: "pointer",
+              marginBottom: "8px",
+            }}
+          >
+            {todo.text}
+            <button
+              onClick={(e) => {
+                e.stopPropagation(); // Prevent toggle when deleting
+                deleteTodo(todo.id);
               }}
+              style={{ marginLeft: "10px" }}
             >
-              {todo.text}
-            </span>
-            <button onClick={() => handleDelete(todo.id)}>Delete</button>
+              Delete
+            </button>
           </li>
         ))}
       </ul>
