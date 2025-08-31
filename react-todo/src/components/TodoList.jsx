@@ -1,6 +1,7 @@
 import { useState } from "react";
 
 function TodoList() {
+  // Initialize state with demo todos
   const [todos, setTodos] = useState([
     { id: 1, text: "Learn React", completed: false },
     { id: 2, text: "Build a Todo App", completed: false },
@@ -9,6 +10,7 @@ function TodoList() {
 
   const [newTodo, setNewTodo] = useState("");
 
+  // Method to add a new todo
   const handleAdd = (e) => {
     e.preventDefault();
     if (!newTodo.trim()) return;
@@ -17,6 +19,7 @@ function TodoList() {
     setNewTodo("");
   };
 
+  // Method to toggle todo completion
   const handleToggle = (id) => {
     setTodos(
       todos.map((todo) =>
@@ -25,6 +28,7 @@ function TodoList() {
     );
   };
 
+  // Method to delete a todo
   const handleDelete = (id) => {
     setTodos(todos.filter((todo) => todo.id !== id));
   };
@@ -32,6 +36,8 @@ function TodoList() {
   return (
     <div>
       <h2>Todo List</h2>
+
+      {/* Add Todo Form */}
       <form onSubmit={handleAdd}>
         <input
           placeholder="Add a new todo"
@@ -41,6 +47,7 @@ function TodoList() {
         <button type="submit">Add Todo</button>
       </form>
 
+      {/* List of todos */}
       <ul>
         {todos.map((todo) => (
           <li key={todo.id}>
