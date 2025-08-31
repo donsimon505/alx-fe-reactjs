@@ -7,13 +7,13 @@ function Profile() {
     <div>
       <h2>Profile Page</h2>
       <nav>
-        {/* Use absolute paths to prevent nested URL issues */}
+        {/* Absolute paths to prevent URL stacking */}
         <Link to="/profile/details">Details</Link> |{" "}
         <Link to="/profile/settings">Settings</Link>
       </nav>
 
-      {/* Nested Routes inside Profile.jsx */}
       <Routes>
+        {/* Use absolute paths in Route too */}
         <Route path="details" element={<ProfileDetails />} />
         <Route path="settings" element={<ProfileSettings />} />
       </Routes>

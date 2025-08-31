@@ -3,8 +3,11 @@ import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
 import Profile from "./components/Profile";
 import BlogPost from "./components/BlogPost";
 import ProtectedRoute from "./components/ProtectedRoute";
+import { useAuth } from "./hooks/useAuth";
 
 function App() {
+  const { setIsAuthenticated } = useAuth();
+
   return (
     <Router>
       <nav>
@@ -12,12 +15,10 @@ function App() {
         <Link to="/blog/123">Example Post</Link> |{" "}
         <button
           onClick={() => {
-            // Toggle login status
-            localStorage.setItem(
-              "auth",
-              localStorage.getItem("auth") === "true" ? "false" : "true"
-            );
-            alert("Auth status: " + localStorage.getItem("auth"));
+            const newAuth = localStorage.getItem("auth") !== "true";
+            localStorage.setItem("auth", newAuth ? "true" : "false");
+            setIsAuthenticated(newAuth); // Update hook state
+            alert("Auth status: " + newAuth);
           }}
         >
           Toggle Login

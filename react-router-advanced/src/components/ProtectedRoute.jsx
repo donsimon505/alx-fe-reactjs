@@ -1,14 +1,10 @@
 import { Navigate } from "react-router-dom";
-
-// Simulate authentication
-const isAuthenticated = () => {
-  // Replace with real auth logic
-  return localStorage.getItem("auth") === "true";
-};
+import { useAuth } from "../hooks/useAuth";
 
 function ProtectedRoute({ children }) {
-  if (!isAuthenticated()) {
-    // Redirect to home or login if not authenticated
+  const { isAuthenticated } = useAuth();
+
+  if (!isAuthenticated) {
     return <Navigate to="/" replace />;
   }
 
