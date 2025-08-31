@@ -1,31 +1,20 @@
 import { useState } from "react";
 
 function RegistrationForm() {
-  // State for form inputs
-  const [formData, setFormData] = useState({
-    username: "",
-    email: "",
-    password: "",
-  });
+  // Separate state for each input
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
   // State for errors
   const [errors, setErrors] = useState({});
 
-  // Handle input change
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
-
   // Validate form
   const validate = () => {
     const newErrors = {};
-    if (!formData.username) newErrors.username = "Username is required";
-    if (!formData.email) newErrors.email = "Email is required";
-    if (!formData.password) newErrors.password = "Password is required";
+    if (!username) newErrors.username = "Username is required";
+    if (!email) newErrors.email = "Email is required";
+    if (!password) newErrors.password = "Password is required";
     return newErrors;
   };
 
@@ -34,8 +23,12 @@ function RegistrationForm() {
     e.preventDefault();
     const validationErrors = validate();
     if (Object.keys(validationErrors).length === 0) {
-      console.log("Form submitted:", formData);
-      // Here you would normally send data to an API
+      console.log("Form submitted:", { username, email, password });
+      // Reset form
+      setUsername("");
+      setEmail("");
+      setPassword("");
+      setErrors({});
     } else {
       setErrors(validationErrors);
     }
@@ -48,8 +41,8 @@ function RegistrationForm() {
         <input
           type="text"
           name="username"
-          value={formData.username}
-          onChange={handleChange}
+          value={username}
+          onChange={(e) => setUsername(e.target.value)}
         />
         {errors.username && <span>{errors.username}</span>}
       </div>
@@ -59,8 +52,8 @@ function RegistrationForm() {
         <input
           type="email"
           name="email"
-          value={formData.email}
-          onChange={handleChange}
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
         />
         {errors.email && <span>{errors.email}</span>}
       </div>
@@ -70,8 +63,8 @@ function RegistrationForm() {
         <input
           type="password"
           name="password"
-          value={formData.password}
-          onChange={handleChange}
+          value={password}
+          onChange={(e) => setPassword(e.target.value)}
         />
         {errors.password && <span>{errors.password}</span>}
       </div>
