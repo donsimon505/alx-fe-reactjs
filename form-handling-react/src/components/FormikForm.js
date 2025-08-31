@@ -11,17 +11,15 @@ const validationSchema = Yup.object({
 });
 
 function FormikForm() {
-  // Initial values
   const initialValues = {
     username: "",
     email: "",
     password: "",
   };
 
-  // Handle form submission
   const handleSubmit = (values, { resetForm }) => {
     console.log("Form submitted:", values);
-    resetForm(); // Optional: reset form after submission
+    resetForm();
   };
 
   return (
