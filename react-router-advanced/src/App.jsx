@@ -1,34 +1,29 @@
-import { useState } from "react";
-import reactLogo from "./assets/react.svg";
-import viteLogo from "/vite.svg";
 import "./App.css";
 import { BrowserRouter as Router, Routes, Route, Link } from "react-router-dom";
-
-function Home() {
-  return <h2>Home Page</h2>;
-}
-
-function About() {
-  return <h2>About Page</h2>;
-}
-
-function Dashboard() {
-  return <h2>Dashboard Page</h2>;
-}
+import Profile from "./components/Profile";
+import ProfileDetails from "./components/ProfileDetails";
+import ProfileSettings from "./components/ProfileSettings";
+import UserPost from "./components/UserPost";
 
 function App() {
   return (
     <Router>
       <nav>
-        <Link to="/">Home</Link>
-        <Link to="/about">About</Link>
-        <Link to="/dashboard">Dashboard</Link>
+        <Link to="/">Home</Link> | <Link to="/profile">Profile</Link> |{" "}
+        <Link to="/post/123">Example Post</Link>
       </nav>
 
       <Routes>
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/" element={<h2>Home Page</h2>} />
+
+        {/* Nested Routes */}
+        <Route path="/profile" element={<Profile />}>
+          <Route path="details" element={<ProfileDetails />} />
+          <Route path="settings" element={<ProfileSettings />} />
+        </Route>
+
+        {/* Dynamic Route */}
+        <Route path="/post/:postId" element={<UserPost />} />
       </Routes>
     </Router>
   );
