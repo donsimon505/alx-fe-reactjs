@@ -13,8 +13,10 @@ function PostsComponent() {
     "posts",
     fetchPosts,
     {
-      staleTime: 5 * 60 * 1000, // 5 minutes cache
-      cacheTime: 10 * 60 * 1000, // 10 minutes before garbage collection
+      staleTime: 5 * 60 * 1000, // 5 minutes
+      cacheTime: 10 * 60 * 1000, // 10 minutes
+      refetchOnWindowFocus: false, // do NOT refetch automatically on window focus
+      keepPreviousData: true, // keeps old data while fetching new data
     }
   );
 
@@ -38,10 +40,9 @@ function PostsComponent() {
       </ul>
 
       <p>
-        {/* Optional: indicate cached data */}
         <em>
-          Data is cached and will not refetch unless you click "Refetch Posts"
-          or cache expires.
+          Data is cached. Refetching manually keeps previous data visible until
+          new data loads.
         </em>
       </p>
     </div>
